@@ -1,0 +1,16 @@
+{
+  "name": "fire-repositry-dispatch",
+  "version": "0.0.1",
+  "description": "none",
+  "main": "index.ts",
+  "author": "satackey",
+  "license": "MIT",
+  "dependencies": {
+    "aws-lambda": "^1.0.5",
+    "axios": "^0.19.2"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.47",
+    "@types/node": "^13.11.0"
+  }
+}
