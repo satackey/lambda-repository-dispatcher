@@ -20,7 +20,7 @@ export class RepositoryDispatcherStack extends cdk.Stack {
     super(scope, id, props);
 
     const dispatcherEnv = {
-      'SLACK_DISPATCHER': process.env['API_GATEWAY_SLACK_TOKEN'],
+      'SLACK_TOKEN': process.env['API_GATEWAY_SLACK_TOKEN'],
       'GITHUB_USER': process.env['LAMBDA_GITHUB_USER'],
       'GITHUB_TOKEN': process.env['LAMBDA_GITHUB_TOKEN'],
       'GITHUB_REPOSITORY': process.env['LAMBDA_GITHUB_REPO'],

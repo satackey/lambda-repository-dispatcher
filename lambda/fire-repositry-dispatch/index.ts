@@ -1,10 +1,10 @@
 import {APIGatewayEventRequestContext, APIGatewayProxyEvent, APIGatewayProxyResult} from 'aws-lambda';
 import axios from 'axios'
 
-const dispatchUrl = `https://api.github.com/repos/${process.env['LAMBDA_GITHUB_REPO'] || ''}/dispatches`
-const githubUser = process.env['LAMBDA_GITHUB_USER'] || ''
-const githubToken = process.env['LAMBDA_GITHUB_TOKEN'] || ''
-const githubBearer = btoa(`${githubUser}:${githubToken}`)
+const dispatchUrl = `https://api.github.com/repos/${process.env['GITHUB_REPO'] || ''}/dispatches`
+const githubUser = process.env['GITHUB_USER'] || ''
+const githubToken = process.env['GITHUB_TOKEN'] || ''
+const githubBasicAuth = Buffer.from(`${githubUser}:${githubToken}`).toString('base64')
 
 export const hander = async (
   event: APIGatewayProxyEvent,
@@ -38,7 +38,7 @@ const handlerWithError = async (
   }, {
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer: ${githubBearer}`,
+      'Authorization': `Basic: ${githubBasicAuth}`,
     }
   })
 
