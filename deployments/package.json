@@ -44,6 +44,7 @@
     "@aws-cdk/cx-api": "^1.31.0",
     "@aws-cdk/region-info": "^1.31.0",
     "constructs": "^2.0.1",
+    "parcel-bundler": "^1.12.4",
     "source-map-support": "^0.5.16"
   }
 }

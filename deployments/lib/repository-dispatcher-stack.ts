@@ -8,7 +8,7 @@ interface DispatcherEnv {
 }
 
 function assertIsDispatcherEnv(dispatcherEnv: any): asserts dispatcherEnv is DispatcherEnv {
-  Object.entries(dispatcherEnv).forEach((key, value) => {
+  Object.entries(dispatcherEnv).forEach(([key, value]) => {
     if (typeof value !== 'string') {
       throw new Error(`key: ${key} is not string`)
     }
@@ -23,7 +23,7 @@ export class RepositoryDispatcherStack extends cdk.Stack {
       'SLACK_TOKEN': process.env['API_GATEWAY_SLACK_TOKEN'],
       'GITHUB_USER': process.env['LAMBDA_GITHUB_USER'],
       'GITHUB_TOKEN': process.env['LAMBDA_GITHUB_TOKEN'],
-      'GITHUB_REPOSITORY': process.env['LAMBDA_GITHUB_REPO'],
+      'GITHUB_REPO': process.env['LAMBDA_GITHUB_REPO'],
     }
     assertIsDispatcherEnv(dispatcherEnv)
 
@@ -41,7 +41,7 @@ export class RepositoryDispatcherStack extends cdk.Stack {
     })
 
     const integration = new LambdaIntegration(fireRepositoryDispatchFunction)
-    const postResource = restApi.root.addResource('post')
-    postResource.addMethod('POST', integration)
+    const getResource = restApi.root.addResource('fire_repository_dispatch')
+    getResource.addMethod('GET', integration)
   }
 }
