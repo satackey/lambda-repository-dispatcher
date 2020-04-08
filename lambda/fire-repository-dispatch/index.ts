@@ -44,6 +44,10 @@ const handlerWithError = async (
     throw new Error('ClientError: Cannot authorize you.')
   }
 
+  const clientPayload = params['text'].length > 1 ? {
+    'base_branch': `${params['text']}`,
+  } : {}
+
   await axios({
     url: dispatchUrl,
     method: 'post',
@@ -53,14 +57,15 @@ const handlerWithError = async (
     },
     data: JSON.stringify({
       'event_type': `Dispatch from Slack user(${params['user_name']})`,
-      'client_payload': {
-        'base_branch': `${params['text']}`,
-      },
+      'client_payload': clientPayload,
     }),
   })
 
   return {
     statusCode: 200,
-    body: ''
+    body: JSON.stringify({
+      'response_type': 'in_channel',
+      'text': `\`repository_dispatch\` イベントを発火しました。(client_payload: \`${JSON.stringify(clientPayload)}\`)`
+    })
   }
 }
